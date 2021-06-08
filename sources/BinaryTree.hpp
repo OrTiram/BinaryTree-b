@@ -41,24 +41,24 @@ template<typename T>
                         return &(point_to_current_node->data);
                     }
             iteratorPreOrder &operator++() {
-                if (point_to_current_node == nullptr) { // cant inc, end of iterator
+                if (point_to_current_node == nullptr) { 
                     throw std::invalid_argument("Cant increment end of iter");
                 }
-                if (point_to_current_node->left != nullptr) { // if we got left child
+                if (point_to_current_node->left != nullptr) { //  left child
                     point_to_current_node = point_to_current_node->left;
                     return *this;
                 }
-                if (point_to_current_node->right != nullptr) { // if we got right child
+                if (point_to_current_node->right != nullptr) { // right child
                     point_to_current_node = point_to_current_node->right;
                     return *this;
                 }
                 if (point_to_current_node->parent != nullptr && point_to_current_node->parent->right != nullptr &&
                     point_to_current_node->parent->left ==
-                    point_to_current_node) { // we are left child at the end and we got sibling
+                    point_to_current_node) { 
                     point_to_current_node = point_to_current_node->parent->right;
                     return *this;
                 }
-                if (point_to_current_node->parent != nullptr) { // we are most right after iterating, need to go up.
+                if (point_to_current_node->parent != nullptr) { 
                     while (point_to_current_node == point_to_current_node->parent->right && point_to_current_node ==
                                                                                 point_to_current_node->parent->right) {
                         point_to_current_node = point_to_current_node->parent;
@@ -67,13 +67,13 @@ template<typename T>
                             return *this;
                         }
                     }
-                    if (point_to_current_node->parent->right != nullptr) { // im now left child, go to right child.
+                    if (point_to_current_node->parent->right != nullptr) { 
                         point_to_current_node = point_to_current_node->parent->right;
                         return *this;
                     }
                 }
                 if (point_to_current_node->parent != nullptr && point_to_current_node->parent->left == point_to_current_node) {
-                    while (point_to_current_node->parent->right == nullptr || point_to_current_node->parent->right == point_to_current_node) { // lastly we are most left and no sibling, go up until we reach to right sibling
+                    while (point_to_current_node->parent->right == nullptr || point_to_current_node->parent->right == point_to_current_node) { 
                         point_to_current_node = point_to_current_node->parent;
                         if (point_to_current_node->parent == nullptr) {
                             point_to_current_node = nullptr;
@@ -89,25 +89,25 @@ template<typename T>
 
             iteratorPreOrder operator++(int) {
                 iteratorPreOrder tmp = *this;
-                if (point_to_current_node == nullptr) { // cant inc, end of iterator
+                if (point_to_current_node == nullptr) { 
                     return tmp;
                 }
-                if (point_to_current_node->left != nullptr) { // if we got left child
+                if (point_to_current_node->left != nullptr) { //  left child
                     point_to_current_node = point_to_current_node->left;
                     return tmp;
                 }
-                if (point_to_current_node->right != nullptr) { // if we got right child
+                if (point_to_current_node->right != nullptr) { // right child
                     point_to_current_node = point_to_current_node->right;
                     return tmp;
                 }
                 if (point_to_current_node->parent != nullptr && point_to_current_node->parent->right != nullptr &&
                     point_to_current_node->parent->left ==
-                    point_to_current_node) { // we are left child at the end and we got sibling
+                    point_to_current_node) { 
                     point_to_current_node = point_to_current_node->parent->right;
                     return tmp;
                 }
                 if (point_to_current_node->parent != nullptr && point_to_current_node ==
-                                                          point_to_current_node->parent->right) { // we are most right after iterating, need to go up.
+                                                          point_to_current_node->parent->right) { 
                     while (point_to_current_node == point_to_current_node->parent->right) {
                         point_to_current_node = point_to_current_node->parent;
                         if (point_to_current_node->parent == nullptr) {
@@ -115,14 +115,14 @@ template<typename T>
                             return tmp;
                         }
                     }
-                    if (point_to_current_node->parent->right != nullptr) { // im now left child, go to right child.
+                    if (point_to_current_node->parent->right != nullptr) { 
                         point_to_current_node = point_to_current_node->parent->right;
                         return tmp;
                     }
                 }
                 if (point_to_current_node->parent != nullptr) {
                     while (point_to_current_node->parent->right ==
-                           nullptr) { // lastly we are most left and no sibling, go up until we reach to right sibling
+                           nullptr) { 
                         point_to_current_node = point_to_current_node->parent;
                         if (point_to_current_node->parent == nullptr) {
                             point_to_current_node = nullptr;
@@ -193,7 +193,6 @@ template<typename T>
                 iteratorInOrder temp = *this;
                 TreeNode *p = nullptr;
                 if (point_to_current_node == nullptr) {
-                    // throw std::invalid_argument("Cant increment end of iter");
                     return temp;
                 }
                 if (point_to_current_node->right != nullptr) {
@@ -250,10 +249,10 @@ template<typename T>
                     point_to_current_node = nullptr;
                     return *this;
                 }
-                if (point_to_current_node->parent->right == point_to_current_node) { // we are right child
+                if (point_to_current_node->parent->right == point_to_current_node) { // right child
                     point_to_current_node = point_to_current_node->parent;
                     return *this;
-                }   // we are left child
+                }   // left child
                 if (point_to_current_node->parent->right != nullptr) {
                     point_to_current_node = point_to_current_node->parent->right;
                     while (point_to_current_node->left != nullptr || point_to_current_node->right != nullptr) {
@@ -273,17 +272,16 @@ template<typename T>
             iteratorPostOrder operator++(int) {
                 iteratorPostOrder temp = *this;
                 if (point_to_current_node == nullptr) {
-                    // throw std::invalid_argument("Cant increment end of iter");
                     return temp;
                 }
                 if (point_to_current_node->parent == nullptr) {
                     point_to_current_node = nullptr;
                     return temp;
                 }
-                if (point_to_current_node->parent->right == point_to_current_node) { // we are right child
+                if (point_to_current_node->parent->right == point_to_current_node) { // right child
                     point_to_current_node = point_to_current_node->parent;
                     return temp;
-                }   // we are left child
+                }   // left child
                 if (point_to_current_node->parent->right != nullptr) {
                     point_to_current_node = point_to_current_node->parent->right;
                     while (point_to_current_node->left != nullptr || point_to_current_node->right != nullptr) {
